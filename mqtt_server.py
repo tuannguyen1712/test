@@ -40,7 +40,7 @@ def index():
 
 # Function to start the Flask web server
 def start_flask_server():
-    socketio.run(app, host=udp_host, port=8000, debug=False)
+    socketio.run(app, host=udp_host, port=8000, debug=False, allow_unsafe_werkzeug=True)
 
 # Start Flask server in a separate thread
 flask_thread = threading.Thread(target=start_flask_server)

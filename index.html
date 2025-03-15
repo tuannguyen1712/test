@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Viewer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+    <script src="/static/socket.io.js"></script> <!-- Socket.IO auto serve this file -->
     <style>
         img {
             max-width: 100%;
@@ -18,13 +18,14 @@
     <h1>Latest Image</h1>
     <img id="latest-image" src="" alt="Latest Image will appear here">
     <script>
-        const socket = io.connect('http://192.168.4.1:8000'); // Update with your server address
+        const socket = io.connect('192.168.4.1:8000');
 
         socket.on('connect', () => {
             console.log("WebSocket connected!");
         });
+
         socket.on('new_image', (data) => {
-            console.log("Received new image."); // Confirm reception
+            console.log("Received new image.");
             const imgElement = document.getElementById('latest-image');
             // Create a Blob URL from the image data
             const blob = new Blob([new Uint8Array(data.image.split('').map(c => c.charCodeAt(0)))], { type: 'image/jpeg' });
